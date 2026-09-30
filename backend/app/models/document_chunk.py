@@ -1,3 +1,5 @@
+from typing import TYPE_CHECKING
+
 from datetime import datetime
 from uuid import UUID, uuid4
 
@@ -15,6 +17,9 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from pgvector.sqlalchemy import Vector
 
 from backend.app.db.session import Base
+
+if TYPE_CHECKING:
+    from backend.app.models.document import Document
 
 
 class DocumentChunk(Base):
