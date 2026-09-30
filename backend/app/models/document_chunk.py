@@ -17,6 +17,7 @@ from sqlalchemy.orm import Mapped, mapped_column, relationship
 from pgvector.sqlalchemy import Vector
 
 from backend.app.db.session import Base
+from backend.app.core.constants import EMBEDDING_DIMENSIONS
 
 if TYPE_CHECKING:
     from backend.app.models.document import Document
@@ -51,7 +52,7 @@ class DocumentChunk(Base):
     )
 
     embedding: Mapped[list[float] | None] = mapped_column(
-        Vector(1536),
+        Vector(EMBEDDING_DIMENSIONS),
         nullable=True,
     )
 
