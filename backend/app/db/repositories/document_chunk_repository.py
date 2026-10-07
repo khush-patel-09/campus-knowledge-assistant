@@ -32,3 +32,19 @@ class DocumentChunkRepository:
             self.db.refresh(chunk)
 
         return chunks
+
+    def search_similar(
+        self,
+        embedding: list[float],
+        limit: int = 5,
+    ) -> list[tuple[DocumentChunk, float]]:
+        distance = DocumentChunk.embedding.cosine_distance(embedding)
+
+        statement = (
+            select(DocumentChunk, distance)
+            .where(DocumentChunk.embedding.is_not(None))
+            .order_by(distance)
+            .limit(limit)
+        )
+
+        return list(self.db.execute(statement).all())
