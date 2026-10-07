@@ -9,6 +9,7 @@ from backend.app.services import EmbeddingService
 class RetrievedChunk:
     chunk: DocumentChunk
     score: float
+    source: str = "unknown"
 
 
 class RetrievalService:
@@ -39,6 +40,7 @@ class RetrievalService:
             RetrievedChunk(
                 chunk=chunk,
                 score=1.0 - distance,
+                source="vector",
             )
             for chunk, distance in results
         ]
@@ -60,6 +62,61 @@ class RetrievalService:
             RetrievedChunk(
                 chunk=chunk,
                 score=score,
+                source="full_text",
             )
             for chunk, score in results
+        ]
+
+    def hybrid_search(
+        self,
+        query: str,
+        limit: int = 5,
+        candidate_limit: int = 10,
+        rrf_k: int = 60,
+    ) -> list[RetrievedChunk]:
+        if not query.strip():
+            return []
+
+        vector_results = self.search(
+            query=query,
+            limit=candidate_limit,
+        )
+
+        keyword_results = self.keyword_search(
+            query=query,
+            limit=candidate_limit,
+        )
+
+        scores: dict[str, float] = {}
+        chunks: dict[str, DocumentChunk] = {}
+
+        for rank, result in enumerate(vector_results, start=1):
+            chunk_id = str(result.chunk.id)
+
+            scores[chunk_id] = scores.get(chunk_id, 0.0) + (
+                1.0 / (rrf_k + rank)
+            )
+            chunks[chunk_id] = result.chunk
+
+        for rank, result in enumerate(keyword_results, start=1):
+            chunk_id = str(result.chunk.id)
+
+            scores[chunk_id] = scores.get(chunk_id, 0.0) + (
+                1.0 / (rrf_k + rank)
+            )
+            chunks[chunk_id] = result.chunk
+
+        ranked_ids = sorted(
+            scores,
+            key=scores.get,
+            reverse=True,
+        )[:limit]
+
+        return [
+            RetrievedChunk(
+                chunk=chunks[chunk_id],
+                score=scores[chunk_id],
+                source="hybrid",
+            )
+            for chunk_id in ranked_ids
         ]
