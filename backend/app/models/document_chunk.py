@@ -19,6 +19,9 @@ from pgvector.sqlalchemy import Vector
 from backend.app.db.session import Base
 from backend.app.core.constants import EMBEDDING_DIMENSIONS
 
+from sqlalchemy import Computed
+from sqlalchemy.dialects.postgresql import TSVECTOR
+
 if TYPE_CHECKING:
     from backend.app.models.document import Document
 
@@ -79,4 +82,13 @@ class DocumentChunk(Base):
 
     document: Mapped["Document"] = relationship(
         back_populates="chunks",
+    )
+
+    search_vector: Mapped[str] = mapped_column(
+        TSVECTOR,
+        Computed(
+            "to_tsvector('english', content)",
+            persisted=True,
+        ),
+        nullable=True,
     )

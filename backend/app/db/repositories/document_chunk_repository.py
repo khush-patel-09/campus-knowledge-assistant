@@ -1,6 +1,7 @@
 from uuid import UUID
 
 from sqlalchemy import select
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from backend.app.models import DocumentChunk
@@ -44,6 +45,29 @@ class DocumentChunkRepository:
             select(DocumentChunk, distance)
             .where(DocumentChunk.embedding.is_not(None))
             .order_by(distance)
+            .limit(limit)
+        )
+
+        return list(self.db.execute(statement).all())
+
+    def search_full_text(
+        self,
+        query: str,
+        limit: int = 5,
+    ) -> list[tuple[DocumentChunk, float]]:
+        search_query = func.plainto_tsquery("english", query)
+
+        rank = func.ts_rank_cd(
+            DocumentChunk.search_vector,
+            search_query,
+        )
+
+        statement = (
+            select(DocumentChunk, rank)
+            .where(
+                DocumentChunk.search_vector.op("@@")(search_query)
+            )
+            .order_by(rank.desc())
             .limit(limit)
         )
 

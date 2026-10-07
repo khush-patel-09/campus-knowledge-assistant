@@ -42,3 +42,24 @@ class RetrievalService:
             )
             for chunk, distance in results
         ]
+
+    def keyword_search(
+        self,
+        query: str,
+        limit: int = 5,
+    ) -> list[RetrievedChunk]:
+        if not query.strip():
+            return []
+
+        results = self.chunk_repository.search_full_text(
+            query=query,
+            limit=limit,
+        )
+
+        return [
+            RetrievedChunk(
+                chunk=chunk,
+                score=score,
+            )
+            for chunk, score in results
+        ]
