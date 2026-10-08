@@ -11,6 +11,12 @@ class RetrievedChunk:
     score: float
     source: str = "unknown"
 
+@dataclass
+class RetrievalFilters:
+    department: str | None = None
+    academic_year: str | None = None
+    document_type: str | None = None
+
 
 class RetrievalService:
     def __init__(
@@ -25,15 +31,21 @@ class RetrievalService:
         self,
         query: str,
         limit: int = 5,
+        filters: RetrievalFilters | None = None,
     ) -> list[RetrievedChunk]:
         if not query.strip():
             return []
 
         query_embedding = self.embedding_service.embed_texts([query])[0]
 
+        filters = filters or RetrievalFilters()
+
         results = self.chunk_repository.search_similar(
             embedding=query_embedding,
             limit=limit,
+            department=filters.department,
+            academic_year=filters.academic_year,
+            document_type=filters.document_type,
         )
 
         return [
@@ -49,6 +61,7 @@ class RetrievalService:
         self,
         query: str,
         limit: int = 5,
+        filters: RetrievalFilters | None = None,
     ) -> list[RetrievedChunk]:
         if not query.strip():
             return []
@@ -56,6 +69,16 @@ class RetrievalService:
         results = self.chunk_repository.search_full_text(
             query=query,
             limit=limit,
+        )
+
+        filters = filters or RetrievalFilters()
+
+        results = self.chunk_repository.search_full_text(
+            query=query,
+            limit=limit,
+            department=filters.department,
+            academic_year=filters.academic_year,
+            document_type=filters.document_type,
         )
 
         return [
@@ -73,7 +96,23 @@ class RetrievalService:
         limit: int = 5,
         candidate_limit: int = 10,
         rrf_k: int = 60,
+        filters: RetrievalFilters | None = None,
     ) -> list[RetrievedChunk]:
+
+        filters = filters or RetrievalFilters()
+
+        vector_results = self.search(
+            query=query,
+            limit=candidate_limit,
+            filters=filters,
+        )
+
+        keyword_results = self.keyword_search(
+            query=query,
+            limit=candidate_limit,
+            filters=filters,
+        )
+        
         if not query.strip():
             return []
 
