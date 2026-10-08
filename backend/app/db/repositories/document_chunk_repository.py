@@ -4,7 +4,7 @@ from sqlalchemy import select
 from sqlalchemy import func
 from sqlalchemy.orm import Session
 
-from backend.app.models import DocumentChunk
+from backend.app.models import Document, DocumentChunk
 
 
 class DocumentChunkRepository:
@@ -43,7 +43,11 @@ class DocumentChunkRepository:
 
         statement = (
             select(DocumentChunk, distance)
-            .where(DocumentChunk.embedding.is_not(None))
+            .join(Document, Document.id == DocumentChunk.document_id)
+            .where(
+                DocumentChunk.embedding.is_not(None),
+                Document.is_active.is_(True),
+            )
             .order_by(distance)
             .limit(limit)
         )
@@ -64,8 +68,10 @@ class DocumentChunkRepository:
 
         statement = (
             select(DocumentChunk, rank)
+            .join(Document, Document.id == DocumentChunk.document_id)
             .where(
-                DocumentChunk.search_vector.op("@@")(search_query)
+                DocumentChunk.search_vector.op("@@")(search_query),
+                Document.is_active.is_(True),
             )
             .order_by(rank.desc())
             .limit(limit)
