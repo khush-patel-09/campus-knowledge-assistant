@@ -1,6 +1,10 @@
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
+import logging
+
+from fastapi import HTTPException
+
 from backend.app.api.dependencies import get_db
 from backend.app.core.rag import create_rag_pipeline
 from backend.app.schemas.qa import (
@@ -10,6 +14,7 @@ from backend.app.schemas.qa import (
 )
 from backend.app.services import RAGPipeline, RetrievalFilters
 
+logger = logging.getLogger(__name__)
 router = APIRouter(prefix="/api/v1", tags=["Question Answering"])
 
 
@@ -30,10 +35,17 @@ def ask_question(
         document_type=request.document_type,
     )
 
-    result = pipeline.answer_question(
-        question=request.question,
-        filters=filters,
-    )
+    try:
+        result = pipeline.answer_question(
+            question=request.question,
+            filters=filters,
+        )
+    except Exception as exc:
+        logger.exception("Question answering failed")
+        raise HTTPException(
+            status_code=503,
+            detail="The question answering service is temporarily unavailable.",
+        ) from exc
 
     return AskResponse(
         answer=result.answer,

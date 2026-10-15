@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 
 from ollama import chat
+from ollama import ResponseError, chat
 
 
 UNKNOWN_ANSWER = "I don't know based on the available documents."
@@ -85,22 +86,31 @@ Rules:
 {citation_instructions}
 """
 
-        response = chat(
-            model=self.model_name,
-            messages=[
-                {
-                    "role": "system",
-                    "content": system_prompt,
-                },
-                {
-                    "role": "user",
-                    "content": (
-                        f"Context:\n{context}\n\n"
-                        f"Question:\n{question}"
-                    ),
-                },
-            ],
-        )
+        try:
+            response = chat(
+                model=self.model_name,
+                messages=[
+                    {
+                        "role": "system",
+                        "content": system_prompt,
+                    },
+                    {
+                        "role": "user",
+                        "content": (
+                            f"Context:\n{context}\n\n"
+                            f"Question:\n{question}"
+                        ),
+                    },
+                ],
+            )
+        except ResponseError as exc:
+            raise RuntimeError(
+                "The local language model could not generate an answer."
+            ) from exc
+        except Exception as exc:
+            raise RuntimeError(
+                "The answer generation service is unavailable."
+            ) from exc
 
         answer = response.message.content.strip()
 
