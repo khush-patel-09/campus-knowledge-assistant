@@ -62,10 +62,7 @@ class DocumentChunkRepository:
         statement = (
             select(DocumentChunk, distance)
             .join(Document, Document.id == DocumentChunk.document_id)
-            .where(
-                DocumentChunk.embedding.is_not(None),
-                Document.is_active.is_(True),
-            )
+            .where(*filters)
             .order_by(distance)
             .limit(limit)
         )
@@ -104,10 +101,7 @@ class DocumentChunkRepository:
         statement = (
             select(DocumentChunk, rank)
             .join(Document, Document.id == DocumentChunk.document_id)
-            .where(
-                DocumentChunk.search_vector.op("@@")(search_query),
-                Document.is_active.is_(True),
-            )
+            .where(*filters)
             .order_by(rank.desc())
             .limit(limit)
         )
