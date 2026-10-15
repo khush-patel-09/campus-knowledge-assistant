@@ -2,23 +2,13 @@ from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
 
 from backend.app.api.dependencies import get_db
-from backend.app.db.repositories.document_chunk_repository import (
-    DocumentChunkRepository,
-)
+from backend.app.core.rag import create_rag_pipeline
 from backend.app.schemas.qa import (
     AskRequest,
     AskResponse,
     SourceResponse,
 )
-from backend.app.services import (
-    AnswerGenerator,
-    CitationSource,
-    LocalEmbeddingService,
-    RAGPipeline,
-    RerankerService,
-    RetrievalFilters,
-    RetrievalService,
-)
+from backend.app.services import RAGPipeline, RetrievalFilters
 
 router = APIRouter(prefix="/api/v1", tags=["Question Answering"])
 
@@ -26,21 +16,7 @@ router = APIRouter(prefix="/api/v1", tags=["Question Answering"])
 def get_rag_pipeline(
     db: Session = Depends(get_db),
 ) -> RAGPipeline:
-    repository = DocumentChunkRepository(db)
-    embedding_service = LocalEmbeddingService()
-    retrieval_service = RetrievalService(
-        chunk_repository=repository,
-        embedding_service=embedding_service,
-    )
-
-    reranker_service = RerankerService()
-    answer_generator = AnswerGenerator()
-
-    return RAGPipeline(
-        retrieval_service=retrieval_service,
-        reranker_service=reranker_service,
-        answer_generator=answer_generator,
-    )
+    return create_rag_pipeline(db)
 
 
 @router.post("/ask", response_model=AskResponse)
