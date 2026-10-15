@@ -66,11 +66,6 @@ class RetrievalService:
         if not query.strip():
             return []
 
-        results = self.chunk_repository.search_full_text(
-            query=query,
-            limit=limit,
-        )
-
         filters = filters or RetrievalFilters()
 
         results = self.chunk_repository.search_full_text(
@@ -98,6 +93,8 @@ class RetrievalService:
         rrf_k: int = 60,
         filters: RetrievalFilters | None = None,
     ) -> list[RetrievedChunk]:
+        if not query.strip():
+            return []
 
         filters = filters or RetrievalFilters()
 
@@ -111,19 +108,6 @@ class RetrievalService:
             query=query,
             limit=candidate_limit,
             filters=filters,
-        )
-        
-        if not query.strip():
-            return []
-
-        vector_results = self.search(
-            query=query,
-            limit=candidate_limit,
-        )
-
-        keyword_results = self.keyword_search(
-            query=query,
-            limit=candidate_limit,
         )
 
         scores: dict[str, float] = {}
