@@ -1,0 +1,26 @@
+[
+  {
+    "id": "qa_001",
+    "question": "Which programming course is listed in the CSE syllabus?",
+    "ground_truth": "CS 101 - Introduction to Computer Programming.",
+    "expected_source": "CSE Syllabus",
+    "expected_page": null,
+    "category": "academic_curriculum"
+  },
+  {
+    "id": "qa_002",
+    "question": "What are the responsibilities of a faculty advisor regarding course registration?",
+    "ground_truth": "A faculty advisor guides students about the rules and regulations governing their courses, advises them to register according to the curriculum and their academic standing, and approves course registration.",
+    "expected_source": "Academic Regulations",
+    "expected_page": null,
+    "category": "academic_policy"
+  },
+  {
+    "id": "qa_003",
+    "question": "What should an invigilator do when a student is caught engaging in indiscipline during an examination?",
+    "ground_truth": "The invigilator should confiscate relevant material, such as chits, phones, or answer papers, issue the student a fresh answer book, and allow the student to resume writing the examination.",
+    "expected_source": "Student Guidelines",
+    "expected_page": null,
+    "category": "examination_policy"
+  }
+]
