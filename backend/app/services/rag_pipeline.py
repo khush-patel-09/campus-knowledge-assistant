@@ -76,16 +76,15 @@ class RAGPipeline:
             chunk = result.chunk
             document = chunk.document
 
-            sources.append(
-                CitationSource(
-                    reference=reference,
-                    title=document.title,
-                    page_number=chunk.page_number,
-                    section_title=chunk.section_title,
-                    source_url=document.source_url,
-                )
+            source = CitationSource(
+                reference=reference,
+                title=document.title,
+                page_number=chunk.page_number,
+                section_title=chunk.section_title,
+                source_url=document.source_url,
             )
 
+            sources.append(source)
             context_parts.append(
                 f"[{reference}]\n{chunk.content}"
             )

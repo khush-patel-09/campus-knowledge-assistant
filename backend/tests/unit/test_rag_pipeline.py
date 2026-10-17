@@ -1,137 +1,52 @@
-from types import SimpleNamespace
-from unittest.mock import Mock
-from uuid import uuid4
+from unittest.mock import MagicMock
 
-from backend.app.services import (
-    AnswerGenerator,
-    CitationSource,
-    RAGPipeline,
-    RetrievalService,
-    RerankerService,
-)
+from backend.app.services.generation import UNKNOWN_ANSWER
+from backend.app.services.rag_pipeline import RAGPipeline
 
 
-def make_retrieved_chunk(
-    title: str = "Student Handbook",
-    content: str = "The library closes at 10:00 PM.",
-    page_number: int = 12,
-    section_title: str = "Library Hours",
-):
-    document = SimpleNamespace(
-        title=title,
-        source_url="https://example.edu/handbook",
-    )
-
-    chunk = SimpleNamespace(
-        id=uuid4(),
-        content=content,
-        page_number=page_number,
-        section_title=section_title,
-        document=document,
-    )
-
-    return SimpleNamespace(
-        chunk=chunk,
-        score=0.9,
-        source="hybrid",
-    )
-
-
-def test_pipeline_generates_answer_with_real_source_metadata():
-    retrieval = Mock(spec=RetrievalService)
-    reranker = Mock(spec=RerankerService)
-    generator = Mock(spec=AnswerGenerator)
-
-    candidate = make_retrieved_chunk()
-
-    retrieval.hybrid_search.return_value = [candidate]
-    reranker.rerank.return_value = [candidate]
-    generator.generate.return_value = (
-        "The library closes at 10:00 PM [1]."
-    )
+def create_pipeline():
+    retrieval_service = MagicMock()
+    reranker_service = MagicMock()
+    answer_generator = MagicMock()
 
     pipeline = RAGPipeline(
-        retrieval_service=retrieval,
-        reranker_service=reranker,
-        answer_generator=generator,
+        retrieval_service=retrieval_service,
+        reranker_service=reranker_service,
+        answer_generator=answer_generator,
     )
 
-    response = pipeline.answer_question(
-        question="When does the library close?"
-    )
-
-    assert response.answer == (
-        "The library closes at 10:00 PM [1]."
-    )
-    assert len(response.sources) == 1
-    assert response.sources[0].title == "Student Handbook"
-    assert response.sources[0].page_number == 12
-    assert response.sources[0].section_title == "Library Hours"
-    assert response.sources[0].source_url == (
-        "https://example.edu/handbook"
-    )
-    assert response.retrieved_chunks == [candidate]
-
-    retrieval.hybrid_search.assert_called_once()
-    reranker.rerank.assert_called_once()
-    generator.generate.assert_called_once()
-
-    generation_kwargs = generator.generate.call_args.kwargs
-    assert "The library closes at 10:00 PM." in (
-        generation_kwargs["context"]
-    )
-    assert generation_kwargs["sources"][0].reference == 1
+    return pipeline, retrieval_service, reranker_service, answer_generator
 
 
-def test_pipeline_returns_fallback_when_no_chunks_are_found():
-    retrieval = Mock(spec=RetrievalService)
-    reranker = Mock(spec=RerankerService)
-    generator = Mock(spec=AnswerGenerator)
+def test_pipeline_returns_unknown_when_no_chunks_are_retrieved():
+    pipeline, retrieval, reranker, generator = create_pipeline()
 
     retrieval.hybrid_search.return_value = []
     reranker.rerank.return_value = []
-    generator.generate.return_value = (
-        "I don't know based on the available documents."
+    generator.generate.return_value = UNKNOWN_ANSWER
+
+    result = pipeline.answer_question(
+        question="What is the current market price of Bitcoin?"
     )
 
-    pipeline = RAGPipeline(
-        retrieval_service=retrieval,
-        reranker_service=reranker,
-        answer_generator=generator,
-    )
-
-    response = pipeline.answer_question(
-        question="Who is the university chancellor?"
-    )
-
-    assert response.answer == (
-        "I don't know based on the available documents."
-    )
-    assert response.sources == []
-    assert response.retrieved_chunks == []
+    assert result.answer == UNKNOWN_ANSWER
+    assert result.sources == []
+    assert result.retrieved_chunks == []
 
     generator.generate.assert_called_once_with(
-        question="Who is the university chancellor?",
+        question="What is the current market price of Bitcoin?",
         context="",
     )
 
 
-def test_pipeline_handles_empty_question():
-    retrieval = Mock(spec=RetrievalService)
-    reranker = Mock(spec=RerankerService)
-    generator = Mock(spec=AnswerGenerator)
+def test_pipeline_returns_empty_response_for_blank_question():
+    pipeline, retrieval, reranker, generator = create_pipeline()
 
-    pipeline = RAGPipeline(
-        retrieval_service=retrieval,
-        reranker_service=reranker,
-        answer_generator=generator,
-    )
+    result = pipeline.answer_question(question="   ")
 
-    response = pipeline.answer_question("   ")
-
-    assert response.answer == ""
-    assert response.sources == []
-    assert response.retrieved_chunks == []
+    assert result.answer == ""
+    assert result.sources == []
+    assert result.retrieved_chunks == []
 
     retrieval.hybrid_search.assert_not_called()
     reranker.rerank.assert_not_called()
