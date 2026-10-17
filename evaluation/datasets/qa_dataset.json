@@ -1,7 +1,7 @@
 [
     {
         "id": "qa_001",
-        "question": "Which programming course is listed in the CSE syllabus?",
+        "question": "Which courses related to programming are listed in the CSE syllabus?",
         "ground_truth": "CS 101 - Introduction to Computer Programming.",
         "expected_source": "CSE Syllabus",
         "expected_page": null,
