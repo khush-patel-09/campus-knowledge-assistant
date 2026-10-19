@@ -1,4 +1,5 @@
 from unittest.mock import MagicMock, patch
+from backend.app.services.generation import CitationSource, validate_citations
 
 from backend.app.services.generation import (
     AnswerGenerator,
@@ -34,3 +35,42 @@ def test_generator_can_return_answer_from_context(mock_chat):
 
     assert answer == "CS 101 is Introduction to Computer Programming."
     mock_chat.assert_called_once()
+
+def test_citation_validator_accepts_available_references():
+    sources = [
+        CitationSource(reference=1, title="CSE Syllabus"),
+        CitationSource(reference=2, title="Academic Regulations"),
+    ]
+
+    answer = "CS 101 is listed in the syllabus [1]. Course registration is covered in [2]."
+
+    assert validate_citations(answer, sources)
+
+
+def test_citation_validator_rejects_unknown_references():
+    sources = [
+        CitationSource(reference=1, title="CSE Syllabus"),
+        CitationSource(reference=2, title="Academic Regulations"),
+    ]
+
+    answer = "CS 101 is listed in the syllabus [7]."
+
+    assert not validate_citations(answer, sources)
+
+
+def test_citation_validator_accepts_answers_without_citations():
+    sources = [
+        CitationSource(reference=1, title="CSE Syllabus"),
+    ]
+
+    assert validate_citations(
+        "The syllabus contains programming courses.",
+        sources,
+    )
+
+
+def test_citation_validator_rejects_citations_without_available_sources():
+    assert not validate_citations(
+        "The syllabus lists CS 101 [1].",
+        [],
+    )

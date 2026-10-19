@@ -1,10 +1,26 @@
+import re
 from dataclasses import dataclass
 
-from ollama import chat
 from ollama import ResponseError, chat
 
 
 UNKNOWN_ANSWER = "I don't know based on the available documents."
+
+def validate_citations(
+    answer: str,
+    sources: list["CitationSource"],
+) -> bool:
+    """Return False if the answer references unavailable sources."""
+    cited_references = {
+        int(reference)
+        for reference in re.findall(r"\[(\d+)\]", answer)
+    }
+
+    available_references = {
+        source.reference for source in sources
+    }
+
+    return cited_references.issubset(available_references)
 
 
 @dataclass
@@ -115,6 +131,9 @@ Rules:
         answer = response.message.content.strip()
 
         if not answer:
+            return UNKNOWN_ANSWER
+
+        if not validate_citations(answer, source_list):
             return UNKNOWN_ANSWER
 
         return answer
