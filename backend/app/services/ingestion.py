@@ -57,6 +57,7 @@ class IngestionService:
                 document_id=document.id,
                 content=chunk.content,
                 chunk_index=chunk.chunk_index,
+                page_number=chunk.page_number,
                 embedding=chunk.embedding,
             )
             for chunk in ingested_chunks

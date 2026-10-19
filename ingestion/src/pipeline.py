@@ -11,6 +11,7 @@ class IngestedChunk:
     content: str
     embedding: list[float]
     chunk_index: int
+    page_number: int | None = None
 
 
 class IngestionPipeline:
@@ -25,15 +26,23 @@ class IngestionPipeline:
         self.embedding_service = embedding_service
 
     def process(self, source: Path) -> list[IngestedChunk]:
-        text = self.loader.load(source)
-        chunks = self.chunker.chunk(text)
+        pages = self.loader.load_pages(source)
 
-        if not chunks:
+        page_chunks: list[tuple[str, int]] = []
+
+        for page_number, page_text in pages:
+            chunks = self.chunker.chunk(page_text)
+
+            for chunk in chunks:
+                page_chunks.append((chunk, page_number))
+
+        if not page_chunks:
             return []
 
-        embeddings = self.embedding_service.embed_texts(chunks)
+        texts = [content for content, _ in page_chunks]
+        embeddings = self.embedding_service.embed_texts(texts)
 
-        if len(chunks) != len(embeddings):
+        if len(texts) != len(embeddings):
             raise ValueError(
                 "Embedding count does not match chunk count"
             )
@@ -43,8 +52,9 @@ class IngestionPipeline:
                 content=content,
                 embedding=embedding,
                 chunk_index=index,
+                page_number=page_number,
             )
-            for index, (content, embedding) in enumerate(
-                zip(chunks, embeddings)
+            for index, ((content, page_number), embedding) in enumerate(
+                zip(page_chunks, embeddings)
             )
         ]
