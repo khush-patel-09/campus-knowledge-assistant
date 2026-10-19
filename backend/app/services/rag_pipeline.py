@@ -71,17 +71,28 @@ class RAGPipeline:
 
         sources: list[CitationSource] = []
         context_parts: list[str] = []
-        source_references: dict[str, int] = {}
+        source_references: dict[tuple[str, int | None, str | None], int] = {}
 
         for result in reranked:
             chunk = result.chunk
             document = chunk.document
 
-            document_key = str(document.id)
+            document_id = str(document.id)
 
-            if document_key not in source_references:
+            # Group chunks by document, page, and section.
+            # If page metadata is unavailable, fall back to document-level citations.
+            if chunk.page_number is not None:
+                source_key = (
+                    document_id,
+                    chunk.page_number,
+                    chunk.section_title,
+                )
+            else:
+                source_key = (document_id, None, None)
+
+            if source_key not in source_references:
                 reference = len(sources) + 1
-                source_references[document_key] = reference
+                source_references[source_key] = reference
 
                 sources.append(
                     CitationSource(
@@ -93,7 +104,7 @@ class RAGPipeline:
                     )
                 )
 
-            reference = source_references[document_key]
+            reference = source_references[source_key]
 
             context_parts.append(
                 f"[{reference}]\n{chunk.content}"

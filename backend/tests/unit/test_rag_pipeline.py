@@ -111,9 +111,12 @@ def test_pipeline_deduplicates_sources_from_same_document():
         question="Which programming courses are listed?"
     )
 
-    assert len(result.sources) == 1
-    assert result.sources[0].title == "CSE Syllabus"
+    assert len(result.sources) == 2
+
     assert result.sources[0].reference == 1
+    assert result.sources[0].page_number == 1
+    assert result.sources[1].reference == 2
+    assert result.sources[1].page_number == 2
 
     # Both chunks must remain available to the answer generator.
     generator.generate.assert_called_once()
@@ -161,3 +164,53 @@ def test_pipeline_keeps_different_documents_as_separate_sources():
 
     assert "[1]" in context
     assert "[2]" in context
+
+def test_pipeline_creates_separate_citations_for_different_pages():
+    pipeline, retrieval_service, reranker_service, answer_generator = (
+        create_pipeline()
+    )
+
+    first_chunk = create_chunk(
+        document_id="doc-1",
+        title="CSE Syllabus",
+        content="Introduction to Computer Programming.",
+        page_number=2,
+        section_title="Programming",
+    )
+
+    second_chunk = create_chunk(
+        document_id="doc-1",
+        title="CSE Syllabus",
+        content="Advanced Programming.",
+        page_number=4,
+        section_title="Advanced Courses",
+    )
+
+    retrieval_service.hybrid_search.return_value = [
+        first_chunk,
+        second_chunk,
+    ]
+    reranker_service.rerank.return_value = [
+        first_chunk,
+        second_chunk,
+    ]
+    answer_generator.generate.return_value = (
+        "Programming courses are listed on pages 2 and 4."
+    )
+
+    response = pipeline.answer_question(
+        question="Which programming courses are listed?"
+    )
+
+    assert len(response.sources) == 2
+
+    assert response.sources[0].reference == 1
+    assert response.sources[0].page_number == 2
+
+    assert response.sources[1].reference == 2
+    assert response.sources[1].page_number == 4
+
+    generated_context = answer_generator.generate.call_args.kwargs["context"]
+
+    assert "[1]\nIntroduction to Computer Programming." in generated_context
+    assert "[2]\nAdvanced Programming." in generated_context
