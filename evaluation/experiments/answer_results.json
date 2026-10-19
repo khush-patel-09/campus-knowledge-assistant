@@ -3,13 +3,9 @@
     "id": "qa_001",
     "question": "Which courses related to programming are listed in the CSE syllabus?",
     "ground_truth": "CS 101 - Introduction to Computer Programming.",
-    "generated_answer": "The courses related to programming listed in the CSE syllabus are:\n\n- CS 101 - Introduction to Computer Programming [2]\n- CS 154 - Abstractions and Paradigms in Programming Lab [3]\n- CS  467 - Functional and Logic Programming [1]\n\nThese courses are directly related to programming, with CS 101 covering introductory programming concepts, CS 154 focusing on laboratory experiments in programming abstractions, and CS 467 covering functional and logic programming paradigms. [1][2][3]",
+    "generated_answer": "The courses related to programming listed in the CSE syllabus are:\n\n- CS 101 - Introduction to Computer Programming [1]  \n- CS 154 - Abstractions and Paradigms in Programming Lab [1]  \n- CS 296 - Software Systems Lab [1]  \n- CS 329 - Principles of Programming Languages [1]  \n\nThese courses cover topics ranging from introductory programming to advanced programming language principles and laboratory experiments. [1]",
     "expected_source": "CSE Syllabus",
     "retrieved_sources": [
-      "CSE Syllabus",
-      "CSE Syllabus",
-      "CSE Syllabus",
-      "CSE Syllabus",
       "CSE Syllabus"
     ],
     "expected_abstention": false,
@@ -21,13 +17,9 @@
     "id": "qa_002",
     "question": "What are the responsibilities of a faculty advisor regarding course registration?",
     "ground_truth": "A faculty advisor guides students about the rules and regulations governing their courses, advises them to register according to the curriculum and their academic standing, and approves course registration.",
-    "generated_answer": "The responsibilities of a faculty advisor regarding course registration include guiding students about the rules and regulations governing course registration, advising students on course registration based on the curriculum and their academic standing, approving student registration, and advising students on course adjustment or drop during the semester within the stipulated time frame [1]. The faculty advisor also discusses a student’s academic performance to determine the number and nature of courses they can register for and may advise a reduced load programme for students with poor performance [2]. Additionally, registration for institute elective courses and non-credit courses must be done in consultation with the faculty advisor [5]. Furthermore, the faculty advisor recommends applications for course/credit requirements for exchange programmes [1].",
+    "generated_answer": "The responsibilities of a faculty advisor regarding course registration include advising students on course registration based on the curriculum and their academic standing [1], discussing the student's academic performance during the previous semester to determine the number and nature of courses they can register for [1], and ensuring that students do not re-register for courses they have already passed [1]. The faculty advisor must also approve the student's course registration as per the permissible load and ensure that grades are not awarded for any academic activity without approved registration [1]. Additionally, the faculty advisor may advise a reduced load programme for students with poor academic performance [1].",
     "expected_source": "Academic Regulations",
     "retrieved_sources": [
-      "Academic Regulations",
-      "Academic Regulations",
-      "Academic Regulations",
-      "Academic Regulations",
       "Academic Regulations"
     ],
     "expected_abstention": false,
@@ -42,10 +34,6 @@
     "generated_answer": "When a student is caught engaging in indiscipline during an examination, the invigilator should confiscate relevant material like chits, phones, answer papers, etc. A fresh answerbook should be issued to the student, and the student should be allowed to resume writing the exam. A detailed note of the incident should be prepared and submitted to the Head of the Department conducting the course [1].",
     "expected_source": "Student Guidelines",
     "retrieved_sources": [
-      "Student Guidelines",
-      "Student Guidelines",
-      "Student Guidelines",
-      "Student Guidelines",
       "Student Guidelines"
     ],
     "expected_abstention": false,
@@ -60,10 +48,7 @@
     "generated_answer": "I don't know based on the available documents.",
     "expected_source": null,
     "retrieved_sources": [
-      "CSE Syllabus",
       "Academic Regulations",
-      "CSE Syllabus",
-      "CSE Syllabus",
       "CSE Syllabus"
     ],
     "expected_abstention": true,
