@@ -71,20 +71,30 @@ class RAGPipeline:
 
         sources: list[CitationSource] = []
         context_parts: list[str] = []
+        source_references: dict[str, int] = {}
 
-        for reference, result in enumerate(reranked, start=1):
+        for result in reranked:
             chunk = result.chunk
             document = chunk.document
 
-            source = CitationSource(
-                reference=reference,
-                title=document.title,
-                page_number=chunk.page_number,
-                section_title=chunk.section_title,
-                source_url=document.source_url,
-            )
+            document_key = str(document.id)
 
-            sources.append(source)
+            if document_key not in source_references:
+                reference = len(sources) + 1
+                source_references[document_key] = reference
+
+                sources.append(
+                    CitationSource(
+                        reference=reference,
+                        title=document.title,
+                        page_number=chunk.page_number,
+                        section_title=chunk.section_title,
+                        source_url=document.source_url,
+                    )
+                )
+
+            reference = source_references[document_key]
+
             context_parts.append(
                 f"[{reference}]\n{chunk.content}"
             )
