@@ -4,6 +4,7 @@ from pathlib import Path
 from backend.app.core.rag import create_rag_pipeline
 from backend.app.db.session import SessionLocal
 from backend.app.services.generation import UNKNOWN_ANSWER
+from evaluation.metrics.answer_quality import evaluate_citation_validity
 
 
 PROJECT_ROOT = Path(__file__).resolve().parents[2]
@@ -36,6 +37,11 @@ def evaluate() -> None:
                 question=item["question"],
             )
 
+            citation_metrics = evaluate_citation_validity(
+                response.answer,
+                response.sources,
+            )
+
             expected_abstention = (
                 item.get("category") == "unanswerable"
             )
@@ -66,6 +72,10 @@ def evaluate() -> None:
                     expected_abstention == actual_abstention
                 ),
                 "expected_source_found": expected_source_found,
+                "citation_valid": citation_metrics["citation_valid"],
+                "cited_references": citation_metrics["cited_references"],
+                "invalid_references": citation_metrics["invalid_references"],
+                "citation_coverage": citation_metrics["citation_coverage"],
             }
 
             results.append(result)
@@ -77,6 +87,8 @@ def evaluate() -> None:
             print(f"Expected abstention: {expected_abstention}")
             print(f"Actual abstention: {actual_abstention}")
             print(f"Abstention correct: {result['abstention_correct']}")
+            print(f"Citation valid: {citation_metrics['citation_valid']}")
+            print(f"Invalid references: {citation_metrics['invalid_references']}")
 
     finally:
         db.close()
@@ -126,6 +138,27 @@ def evaluate() -> None:
             f"Expected-source retrieval: "
             f"{correct_sources}/{len(answerable_cases)} "
             f"({source_accuracy:.2f}%)"
+        )
+
+        citation_cases = [
+        result for result in results
+        if result["cited_references"]
+    ]
+
+    valid_citations = sum(
+        result["citation_valid"]
+        for result in citation_cases
+    )
+
+    if citation_cases:
+        citation_accuracy = (
+            valid_citations / len(citation_cases) * 100
+        )
+
+        print(
+            f"Citation validity: "
+            f"{valid_citations}/{len(citation_cases)} "
+            f"({citation_accuracy:.2f}%)"
         )
 
 
