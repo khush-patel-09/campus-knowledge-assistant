@@ -2,7 +2,7 @@
     {
         "id": "qa_001",
         "question": "Which courses related to programming are listed in the CSE syllabus?",
-        "ground_truth": "CS 101 - Introduction to Computer Programming.",
+        "ground_truth": "The syllabus lists CS 101 - Introduction to Computer Programming, CS 154 - Abstractions and Paradigms in Programming Lab, CS 296 - Software Systems Lab, and CS 329 - Principles of Programming Languages as programming-related courses.",
         "expected_source": "CSE Syllabus",
         "expected_page": null,
         "category": "academic_curriculum"

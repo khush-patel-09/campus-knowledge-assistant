@@ -2,8 +2,8 @@
   {
     "id": "qa_001",
     "question": "Which courses related to programming are listed in the CSE syllabus?",
-    "ground_truth": "CS 101 - Introduction to Computer Programming.",
-    "generated_answer": "The courses related to programming listed in the CSE syllabus are:\n\n- CS 101 - Introduction to Computer Programming [1]\n- CS 154 - Abstractions and Paradigms in Programming Lab [3]\n- CS 296 - Software Systems Lab [4]\n- CS 329 - Principles of Programming Languages [5]\n\nThese courses are explicitly related to programming as per the syllabus content and titles. [1][3][4][5]",
+    "ground_truth": "The syllabus lists CS 101 - Introduction to Computer Programming, CS 154 - Abstractions and Paradigms in Programming Lab, CS 296 - Software Systems Lab, and CS 329 - Principles of Programming Languages as programming-related courses.",
+    "generated_answer": "The courses related to programming listed in the CSE syllabus are:\n\n- CS 101 - Introduction to Computer Programming [1]\n- CS 154 - Abstractions and Paradigms in Programming Lab [3]\n- CS 296 - Software Systems Lab [4]\n- CS 329 - Principles of Programming Languages [5]\n\nThese courses cover topics ranging from introductory programming to advanced programming language foundations and laboratory experiences. [1][3][4][5]",
     "expected_source": "CSE Syllabus",
     "retrieved_sources": [
       "CSE Syllabus",
@@ -24,13 +24,64 @@
       5
     ],
     "invalid_references": [],
-    "citation_coverage": 1.0
+    "citation_coverage": 1.0,
+    "retrieved_context": [
+      {
+        "content": "CSE Department UG Course Contents\n\nI Title of the Course\n\nCS 101- Introduction to Computer Programming\n\nIi Credit Structure L\n\n2\n\nT\n\n0\n\nP\n\n2\n\nC\n\n6\n\nIii Prerequisite, if any\n\n(for the student) Nil\n\nIv Course content\n\n(separate sheet\n\nmay be used, if\n\nnecessary)\n\nAn introduction to problem solving with computers using a modern\n\nlanguage such as Java or C/C++.\n\nIntroduction to Unix environment and tools\n\nProgramming features: Machine representation, primitive types,\n\narrays and records, objects, expressions, control statements,\n\niteration, procedures, functions, and basic I/O, recursion, pointers.\n\nSample problems in engineering, science, text processing, and\n\nnumerical methods.\n\nTwo hours of laboratory time which will include practice on\n\ncomputers.\n\nV Texts/References 1. Kernighan and Ritchie, The C programming language (2 nd\n\nedition). Prentice Hall of India, 1988.\n\n2. Coohoon and Davidson, C++ Program Design: An introduction\n\nto Programming and Object-Oriented Design. Tata McGraw Hill",
+        "page_number": 6,
+        "section_title": null,
+        "document_title": "CSE Syllabus"
+      },
+      {
+        "content": "1. Preamble\n\nThe CSE Dept. proposes to define the B.Tech and DD curriculum by re- introducing Prerequisite and co-requisite courses and introducing floating core courses. The floating core courses are associated with either even or odd semesters (under the assumption that a core course is offered only once a year.) A student has the freedom of doing a core course in any year, subject to pre-requisite and co-requisite requirements being satisfied. Floating courses are marked with a * in the subsequent section.\n\n2. The Complete B.Tech Programme\n\nThis section lists the complete programme. Note that the course numbers are tentative and have been borrowed from existing courses wherever available.\n\nOver all credit structure of B.Tech. Programme is as follows.\n\nDepartment\n\nInstitute Total Credits\n\n134\n\n115\n\n249\n\nSemester wise credit details are given below.\n\nSemester 1\n\nNumber Course Title\n\nMA 105 Calculus\n\nCH 101 Chemistry I\n\nCS 101 Introduction to computer\n\nprogramming\n\nHS 101 Economics",
+        "page_number": 1,
+        "section_title": null,
+        "document_title": "CSE Syllabus"
+      },
+      {
+        "content": "Structure and Interpretation of Computer Programs, 2nd\n\nedition, The MIT Press, 1996.\n\nI Title of the Course CS 154 Abstractions and Paradigms in Programming Lab.\n\nIi Credit Structure L\n\n0\n\nT\n\n0\n\nP\n\n3\n\nC\n\n3\n\nIii Prerequisite, if any\n\n(for the student )\n\nNil\n\nIv Course content\n\n(separate sheet\n\nmay be used, if\n\nnecessary)\n\nExperiments to support the associated theory course.\n\nV Texts/References",
+        "page_number": 7,
+        "section_title": null,
+        "document_title": "CSE Syllabus"
+      },
+      {
+        "content": "I Title of the Course CS 296 Software Systems Lab.\n\nIi credit structure L\n\n2\n\nT\n\n0\n\nP\n\n2\n\nC\n\n6\n\nIii Prerequisite, if any\n\n(for the student) Data Structures and Algorithms Lab.\n\nIv Course content\n\n(separate sheet\n\nmay be used, if\n\nnecessary)\n\nIntroduction to the UNIX operating system (file system and\n\ndirectory structure,and processes). Unix\n\ntools (shell\n\nprogramming, grep, tar, compress, sed,\n\nfind, sort etc).\n\nProgramming in AWK. Introduction to World Wide Web (HTML,\n\nHTTP, CGI).Programming Using Java, Graphical User Interface\n\nProgramming using Java. Socket programming in Java.\n\nProgramming tools (make, source code control using\n\nRCS/CVS/SVN, debuggers). Document processing using Latex.\n\nV Texts/References",
+        "page_number": 11,
+        "section_title": null,
+        "document_title": "CSE Syllabus"
+      },
+      {
+        "content": "I Title of the Course CS 329 Principles of Programming Languages\n\nIi Credit Structure L\n\nT\n\nP\n\nC\n\nIii Prerequisite, if any\n\n(for the student) None\n\nIv Course content\n\n(separate sheet\n\nmay be used, if\n\nnecessary)\n\nIntroduction: Brief history of evolution of programming languages.\n\nProgramming abstractions for control and data. Classification of\n\nProgramming Languages.\n\nTypes in Programming Languages: Types and values. Primitive types and composite types, recursive types. Sub typing and presumption rules, Forms of Polymorphism. Static vs. dynamic typing, type-safety and type checking. Lambda Calculus.\n\nFoundations of Imperative, Object Oriented, Applicative and Declarative Programming Languages. Programming Environments and virtual machines, A study of some runtime structures. Threads and concurrency primitives in modern programming languages, event handling.\n\nV Texts/References 1. Benjamin Pierce, Types and Programming Languages, MIT Press, 2002.",
+        "page_number": 29,
+        "section_title": null,
+        "document_title": "CSE Syllabus"
+      }
+    ],
+    "faithfulness": {
+      "claims": [
+        {
+          "claim": "The courses related to programming listed in the CSE syllabus are: CS 101 - Introduction to Computer Programming, CS 154 - Abstractions and Paradigms in Programming Lab, CS 296 - Software Systems Lab, CS 329 - Principles of Programming Languages.",
+          "verdict": "supported",
+          "evidence": "I Title of the Course CS 101- Introduction to Computer Programming\nI Title of the Course CS 154 Abstractions and Paradigms in Programming Lab.\nI Title of the Course CS 296 Software Systems Lab.\nI Title of the Course CS 329 Principles of Programming Languages"
+        },
+        {
+          "claim": "These courses cover topics ranging from introductory programming to advanced programming language foundations and laboratory experiences.",
+          "verdict": "partially_supported",
+          "evidence": "An introduction to problem solving with computers using a modern language such as Java or C/C++. Introduction to Unix environment and tools. Programming features: Machine representation, primitive types, arrays and records, objects, expressions, control statements, iteration, procedures, functions, and basic I/O, recursion, pointers. Sample problems in engineering, science, text processing, and numerical methods. Experiments to support the associated theory course. Introduction to the UNIX operating system (file system and directory structure, and processes). Unix tools (shell programming, grep, tar, compress, sed, find, sort etc.). Programming in AWK. Introduction to World Wide Web (HTML, HTTP, CGI). Programming Using Java, Graphical User Interface Programming using Java. Socket programming in Java. Programming tools (make, source code control using RCS/CVS/SVN, debuggers). Document processing using Latex. Introduction: Brief history of evolution of programming languages. Programming abstractions for control and data. Classification of Programming Languages. Types in Programming Languages: Types and values. Primitive types and composite types, recursive types. Sub typing and presumption rules, Forms of Polymorphism. Static vs. dynamic typing, type-safety and type checking. Lambda Calculus. Foundations of Imperative, Object Oriented, Applicative and Declarative Programming Languages. Programming Environments and virtual machines, A study of some runtime structures. Threads and concurrency primitives in modern programming languages, event handling."
+        }
+      ],
+      "total_claims": 2,
+      "supported_claims": 1,
+      "partially_supported_claims": 1,
+      "unsupported_claims": 0,
+      "faithfulness_score": 0.5
+    }
   },
   {
     "id": "qa_002",
     "question": "What are the responsibilities of a faculty advisor regarding course registration?",
     "ground_truth": "A faculty advisor guides students about the rules and regulations governing their courses, advises them to register according to the curriculum and their academic standing, and approves course registration.",
-    "generated_answer": "The responsibilities of a faculty advisor regarding course registration include advising students on course registration based on the curriculum and their academic standing [1]. The faculty advisor discusses the student's academic performance in the previous semester and decides the number and nature of courses for which the student can register within the framework of Senate-approved guidelines [2]. The faculty advisor must approve the student's course registration, ensuring it aligns with the permissible load as per the curriculum [2]. Additionally, the faculty advisor ensures that students do not re-register for courses they have already passed and advises on registration in consultation with the student [2]. The faculty advisor ultimately approves the registration, and grades will not be awarded for any academic activity without approved registration [2].",
+    "generated_answer": "The responsibilities of a faculty advisor regarding course registration include advising students on course registration based on the curriculum and their academic standing [1]; discussing the student's academic performance during the previous semester to determine the number and nature of courses for which they can register [2]; advising students to drop one or more courses or activities based on academic performance [2]; and finally approving the student's course registration as per the permissible load [2]. Additionally, the faculty advisor ensures that students do not re-register for courses they have already passed and informs students that grades will not be awarded without approved registration [2]. All registration must be approved by the faculty advisor, and students must consult their faculty advisor before registering for courses [3].",
     "expected_source": "Academic Regulations",
     "retrieved_sources": [
       "Academic Regulations",
@@ -44,10 +95,82 @@
     "citation_valid": true,
     "cited_references": [
       1,
-      2
+      2,
+      3
     ],
     "invalid_references": [],
-    "citation_coverage": 1.0
+    "citation_coverage": 1.0,
+    "retrieved_context": [
+      {
+        "content": "3. ROLE OF THE FACULTY ADVISOR\n\nOn joining the Institute, a student or a group of students is/are assigned to a Faculty Advisor. The students are expected to consult the Faculty Advisor on any matter relating to their academic performance and the courses they may take in various semesters. The Faculty Advisor guides the students to complete their courses of study for the required degree. For effective utilization of the opportunities for additional academic accomplishments, the planning of an individual's academic journey needs careful consideration, and hence constant consultation with the Faculty Advisors are imperative. The Faculty Advisor is the person whom the parents/ guardians should contact for performance related issues of their wards.\n\nThe role of the Faculty Advisor is outlined below:\n\nGuide the students about the rules and regulations governing the courses of study.\n\nAdvise the students to register for courses as per the curriculum and their academic standing.",
+        "page_number": 14,
+        "section_title": null,
+        "document_title": "Academic Regulations"
+      },
+      {
+        "content": "4.1 Semester-Wise Registration\n\nOn joining the Institute, each student is assigned to a Faculty Advisor or an Advisory group (refer Sec.3). The student can register for courses s/he intends to take during a given semester or summer term on the basis of the programme for each discipline as given in the Curriculum and as per the advice given by his/her Faculty Advisor. The Faculty Advisor is expected to discuss with the student his/her academic performance during the previous semester and then decide the number and nature of the courses for which s/he can register during the semester within the framework of the guidelines as approved by the Senate. The Faculty Advisor may advise the student to drop one or more courses/ activities based on his/her academic performance (refer Sec. 5.1). In fact, the Faculty Advisor may even advise a reduced load programme over several semesters for students with poor performance at the end of the first semester/ year.\n\n4.2 Procedure for Registrations",
+        "page_number": 15,
+        "section_title": null,
+        "document_title": "Academic Regulations"
+      },
+      {
+        "content": "On joining the Institute, each student is assigned a Faculty Advisor from his/her Department. Students must consult the Faculty Advisor on any matter relating to their academic performance and the courses they may take in various semesters/ summer terms. The Faculty Advisor guides the students to complete their courses of study for the required degree in a timely manner, while maintaining good academic performance.\n\nAll academic issues connected with the B.Tech., Dual degree, B.S. and B.Des. programmes are handled by DUGC, UGAPEC and UGPC. If on any academic matter a student would like to approach this administrative structure, it is always through the DUGC with advice and recommendations from her /his Faculty Advisor.",
+        "page_number": 8,
+        "section_title": null,
+        "document_title": "Academic Regulations"
+      },
+      {
+        "content": "4.2 Procedure for Registrations\n\nThe Institute has an online registration system and the registration is normally done on the first two days of each semester. The registration schedule is announced in the Academic Calendar. In all circumstances, registration must be completed on or before the prescribed last date for registration. Students having outstanding dues to the Institute or a hostel shall not be permitted to register .\n\n4.2.1 Online Registration\n\nThe online registration process involves filling up of an online Course Registration Form (CRF) stating the courses and project / seminar etc., that the student proposes to complete during that semester as per the prescribed curriculum. This should be done in consultation with the Faculty Advisor, who finally approves the registration as per permissible load (refer Sec. 5.2). Grades will not be awarded for any academic activity (course/ Lab/ seminar/ project/ non-credit requirement etc.) without approved registration.",
+        "page_number": 15,
+        "section_title": null,
+        "document_title": "Academic Regulations"
+      },
+      {
+        "content": "h) To ensure that students are not permitted to re-register for courses, which they have already passed. i) Inform students that grades will not be awarded for any academic activity (course/ Lab./ seminar/ project/ non-credit requirement etc.) without approved registration. j) Strictly warn students that if s/he fails to register during any semester without prior ap-\n\nproval, his/her studentship is liable to be cancelled.\n\n4. REGISTRATION\n\nRegistration at the beginning of each semester, as per the prescribed dates announced in the Academic Calendar, is mandatory for every student till s/he completes her/ his programme. If a student does not register in a particular semester without prior permission of the UGAPEC, her/his studentship is liable to be cancelled.. Students are not permitted to re-register for course/(s), which they have already passed. All students' registration has to be approved by his/ her Faculty Advisor. Some courses may also require instructor consent.",
+        "page_number": 15,
+        "section_title": null,
+        "document_title": "Academic Regulations"
+      }
+    ],
+    "faithfulness": {
+      "claims": [
+        {
+          "claim": "The responsibilities of a faculty advisor regarding course registration include advising students on course registration based on the curriculum and their academic standing",
+          "verdict": "supported",
+          "evidence": "The Faculty Advisor advises the students to register for courses as per the curriculum and their academic standing."
+        },
+        {
+          "claim": "The responsibilities of a faculty advisor regarding course registration include discussing the student's academic performance during the previous semester to determine the number and nature of courses for which they can register",
+          "verdict": "supported",
+          "evidence": "The Faculty Advisor is expected to discuss with the student his/her academic performance during the previous semester and then decide the number and nature of the courses for which s/he can register during the semester within the framework of the guidelines as approved by the Senate."
+        },
+        {
+          "claim": "The responsibilities of a faculty advisor regarding course registration include advising students to drop one or more courses or activities based on academic performance",
+          "verdict": "supported",
+          "evidence": "The Faculty Advisor may advise a student to drop one or more courses/ activities based on his/her academic performance (refer Sec. 5.1)."
+        },
+        {
+          "claim": "The responsibilities of a faculty advisor regarding course registration include finally approving the student's course registration as per the permissible load",
+          "verdict": "supported",
+          "evidence": "The Faculty Advisor finally approves the registration as per permissible load (refer Sec. 5.2)."
+        },
+        {
+          "claim": "Additionally, the faculty advisor ensures that students do not re-register for courses they have already passed and informs students that grades will not be awarded without approved registration",
+          "verdict": "supported",
+          "evidence": "To ensure that students are not permitted to re-register for courses, which they have already passed. i) Inform students that grades will not be awarded for any academic activity (course/ Lab/ seminar/ project/ non-credit requirement etc.) without approved registration."
+        },
+        {
+          "claim": "All registration must be approved by the faculty advisor, and students must consult their faculty advisor before registering for courses",
+          "verdict": "supported",
+          "evidence": "All academic issues connected with the B.Tech., Dual degree, B.S. and B.Des. programmes are handled by DUGC, UGAPEC and UGPC. If on any academic matter a student would like to approach this administrative structure, it is always through the DUGC with advice and recommendations from her /his Faculty Advisor. Students must consult the Faculty Advisor on any matter relating to their academic performance and the courses they may take in various semesters/ summer terms. The Faculty Advisor guides the students to complete their courses of study for the required degree in a timely manner, while maintaining good academic performance. All students' registration has to be approved by his/ her Faculty Advisor."
+        }
+      ],
+      "total_claims": 6,
+      "supported_claims": 6,
+      "partially_supported_claims": 0,
+      "unsupported_claims": 0,
+      "faithfulness_score": 1.0
+    }
   },
   {
     "id": "qa_003",
@@ -69,7 +192,63 @@
       1
     ],
     "invalid_references": [],
-    "citation_coverage": 1.0
+    "citation_coverage": 1.0,
+    "retrieved_context": [
+      {
+        "content": "Guidelines for invigilators Upon discovery of an act of indiscipline by a student during an exam, the invigilator should confiscate relevant material like chits, phones, answer papers, etc. A fresh answerbook should be issued to the student and the student should be allowed to resume writing the exam. A detailed note should be prepared as above and submitted to the Head of the Department conducting the course.\n\n4.2 Guidelines for Office Staff",
+        "page_number": 2,
+        "section_title": null,
+        "document_title": "Student Guidelines"
+      },
+      {
+        "content": "After due deliberation, the disciplinary action is decided. The attached document listing suitable disciplinary actions is to be used for this purpose. The main role of the D-ADAC is in sifting through the evidence and establishing the type of malpractice, if any. The final recommendation should be unambiguous. Members not agreeing with the report, may add a dissenting note. In case the evidence is not clear, the benefit of doubt goes to the student.\n\nThe recommendation is forwarded via the Head to the Dean(AP) for approval. The Dean(AP) may approve the recommendation, seek clarifications, or submit it to the ADAC if a more stringent measure is warranted. Once approved by the Dean(AP), the report is sent to the Academic Office for implementation. A letter is also issued to the student regarding the implementation of the report with copies to the concerned instructor, the parents of the student, and the Head of the student's department.",
+        "page_number": 3,
+        "section_title": null,
+        "document_title": "Student Guidelines"
+      },
+      {
+        "content": "An instructor, on discovery of a case of academic malpractice by a student will report it to the Head of the Academic Unit who will refer it to the D-ADAC. The D-ADAC will examine each case and recommend an appropriate disciplinary action, which is forwarded, via the Head, to the Dean (AP) for implementation. The Dean (AP) may approve the recommendation and forward it to the Academic Office for implementation or may forward it to the ADAC for consideration. In cases of serious acts of malpractice, like impersonation, repeat offences by the same student, etc., the D-ADAC forwards the documents through the Head to the Dean (AP)'s office. In such cases, the appropriate disciplinary action is decided by the ADAC. The Dean (AP) will finally forward the decision of the ADAC to the Director for approval.",
+        "page_number": 1,
+        "section_title": null,
+        "document_title": "Student Guidelines"
+      },
+      {
+        "content": "Procedures for handling acts of academic malpractices by students\n\nApril 16, 2015\n\n1 Overview of the procedures\n\nActs of academic malpractices by students are dealt with at two levels. At the department level, they are handled by a Departmental Academic Disciplinary Action Committee (D-ADAC) and at the institute level, by the Academic Disciplinary Action Committee (ADAC). The D-ADAC deals with acts which attract a maximum disciplinary action of a fail grade (FR or DX). Acts which deserve a more stringent disciplinary action are handled by the ADAC.",
+        "page_number": 1,
+        "section_title": null,
+        "document_title": "Student Guidelines"
+      },
+      {
+        "content": "The Head (or a representative) of the Academic Unit which had forwarded the complaint and the Head (or a representative) of the Academic Unit of the student concerned may be invited for discussion and information dissemination. The faculty member(s) who had submitted the complaint, the student concerned, and other concerned persons may also be invited for discussion. However the invitees will not take part in the deliberations and decision making.",
+        "page_number": 1,
+        "section_title": null,
+        "document_title": "Student Guidelines"
+      }
+    ],
+    "faithfulness": {
+      "claims": [
+        {
+          "claim": "When a student is caught engaging in indiscipline during an examination, the invigilator should confiscate relevant material like chits, phones, answer papers, etc.",
+          "verdict": "supported",
+          "evidence": "Upon discovery of an act of indiscipline by a student during an exam, the invigilator should confiscate relevant material like chits, phones, answer papers, etc."
+        },
+        {
+          "claim": "A fresh answerbook should be issued to the student, and the student should be allowed to resume writing the exam.",
+          "verdict": "supported",
+          "evidence": "A fresh answerbook should be issued to the student and the student should be allowed to resume writing the exam."
+        },
+        {
+          "claim": "A detailed note should be prepared as above and submitted to the Head of the Department conducting the course [1].",
+          "verdict": "supported",
+          "evidence": "A detailed note should be prepared as above and submitted to the Head of the Department conducting the course."
+        }
+      ],
+      "total_claims": 3,
+      "supported_claims": 3,
+      "partially_supported_claims": 0,
+      "unsupported_claims": 0,
+      "faithfulness_score": 1.0
+    }
   },
   {
     "id": "qa_004",
@@ -89,6 +268,46 @@
     "citation_valid": true,
     "cited_references": [],
     "invalid_references": [],
-    "citation_coverage": null
+    "citation_coverage": null,
+    "retrieved_context": [
+      {
+        "content": "Quantum Technologies (Ref. 265 th Senate Meeting):\n\nThe IDDDP for quantum technologies is open to all students who are on course to graduate with a\n\nB.Tech. degree at IIT Bombay with a CPI of 7.5/10 or above. Additionally, the prerequisites for the IDDDP are the following courses: [a] + at least one from [b]. [a] Quantum Mechanics (PH204 or PH403) [b] Electronic Devices and Circuits (EE207), Digital Electronics (EE221), Digital Systems (EE224), Signal Processing I (EE229), Design and Analysis of Algorithms (CS218), Data Structures and Algorithms (CS213), Discrete Structures (CS105), Introduction to Condensed Matter Physics (PH436), Electronic Devices and Characterization (PH207), Electronic properties of materials (MM318). The department can have a maximum intake of 20 students in an academic year.\n\nSPECIAL LEAVE",
+        "page_number": 49,
+        "section_title": null,
+        "document_title": "Academic Regulations"
+      },
+      {
+        "content": "I Title of the Course CS 406 Cryptography and Network Security\n\nIi Credit Structure L\n\n3\n\nT\n\n0\n\nP\n\n0\n\nC\n\n6\n\nIii Prerequisite, if any\n\n(for the student)\n\nComputer Networks (CS 348)\n\nIv Course content\n\n(separate sheet may\n\nbe used, if\n\nnecessary)\n\nThreats, vulnerabilities and attacks. Authentication,\n\nconfidentiality, integrity and non-repudiation in data\n\ncommunication. Stream ciphers (ex. RC4) and block ciphers (DES,\n\nAES), modes of operation. Public key cryptography using RSA and\n\nelliptic curve cryto-schemes (on prime and binary fields). Linear\n\nand differential cryptanalysis, side-channel attacks. Discrete\n\nLogarithm Problem and Duffie-Hellman key exchange. Attacks\n\n(based on Pollard-rho algorithm, for example) on factorization and\n\nthe discrete log. Properties, applications and attacks on the\n\ncryptographic hash. Message authentication Code (MAC) and the\n\ndigital signature. Key management, digital certificates and the\n\nPublic Key Infrastructure (PKI), hardware/software",
+        "page_number": 20,
+        "section_title": null,
+        "document_title": "CSE Syllabus"
+      },
+      {
+        "content": "In 2. (b) and 3., a student can replace a particular course in S2* or S3* with an advanced PhD\n\nThe student should overall complete 124 credits (of the courses from above lists and/or project)\n\nThe number of enrolments in this program is capped at 5. This programme is effective for 2021 batch students onwards.\n\nlevel course in the same broad area in consultation with the faculty advisor. to get the degree. A project will be of 36 credits. *Please check Maths department website for S1/ S2/ S3 baskets\n\nQuantum Technologies (Ref. 265 th Senate Meeting):\n\nThe IDDDP for quantum technologies is open to all students who are on course to graduate with a",
+        "page_number": 49,
+        "section_title": null,
+        "document_title": "Academic Regulations"
+      },
+      {
+        "content": "digital signature. Key management, digital certificates and the\n\nPublic Key Infrastructure (PKI), hardware/software\n\nimplementation issues for various crypto schemes including\n\nperformance.\n\nBasic authentication protocols, Needham-Schroeder protocol and\n\nKerberos. Security at the network layer (IPSec), transport layer\n\n(SSL/TLS) and in applications such as electronic payment.\n\nIntroduction to network security (firewalls, worms/viruses, Trojans\n\nand spy ware, intrusion detection/prevention systems, virtual\n\nprivate networks).\n\nV Texts/References 1. Cryptography and Network Security - Principles and Practices,\n\nW. Stallings, Pearson Education Publishers, (3rd Edition), 2005.\n\n2. Network Security - Private Communication in a Public World,\n\nKaufman, Perlman, Speciner, Prentice Hall, (2nd Edition),\n\n2002.\n\n3. Cryptography and Network Security B.Forouzan. Tata McGraw\n\nHill.( 1st Edition), 2007.\n\n4. Several papers from conferences, magazines and journals\n\n(principally IEEE and ACM).",
+        "page_number": 20,
+        "section_title": null,
+        "document_title": "CSE Syllabus"
+      },
+      {
+        "content": "I Title of the Course CS 347 Operating Systems\n\nIi Credit Structure L\n\n3\n\nT\n\n0\n\nP\n\n0\n\nC\n\n6\n\nIii Prerequisite, if any\n\n(for the student)\n\nData Structures and Algorithms\n\nIv Course content\n\n(separate sheet\n\nmay be used, if\n\nnecessary)\n\nFundamental goals of operating systems Overview of important features of computer architectures for OS operation. Issues in user service and system performance.\n\nOverview of operating systems---multiprogramming, time sharing,\n\nreal time and distributed operating systems. Concurrency and\n\nparallelism.\n\nProcesses and threads Process synchronization. Process\n\ndeadlocks.\n\nMemory management. Memory fragmentation and techniques for\n\nmemory reuse.\n\nVirtual memory using paging. Segmentation.\n\nFile systems. Implementation of file Operations .Protection of files. Case studies of contemporary operating systems.\n\nV Texts/References 1. Dhamdhere, D. M., Operating Systems---A concept-based\n\napproach, Second edition, McGraw-Hill Education India, New\n\nDelhi, 2006.",
+        "page_number": 13,
+        "section_title": null,
+        "document_title": "CSE Syllabus"
+      }
+    ],
+    "faithfulness": {
+      "claims": [],
+      "total_claims": 0,
+      "supported_claims": 0,
+      "partially_supported_claims": 0,
+      "unsupported_claims": 0,
+      "faithfulness_score": null
+    }
   }
 ]
