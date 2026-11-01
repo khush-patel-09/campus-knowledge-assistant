@@ -147,6 +147,17 @@ export default function Home() {
     });
   }
 
+  function groupSources(sources: Source[]) {
+  return sources.reduce<Record<string, Source[]>>((groups, source) => {
+    if (!groups[source.title]) {
+      groups[source.title] = [];
+    }
+
+    groups[source.title].push(source);
+    return groups;
+  }, {});
+}
+
   return (
     <div className="flex h-screen overflow-hidden">
       {/* Sidebar */}
@@ -339,64 +350,64 @@ export default function Home() {
                                 message.sources ?? []
                               )}
                         </div>
-
                         {!message.error &&
                           message.sources &&
                           message.sources.length > 0 && (
                             <div className="mt-4">
                               <p className="mb-3 text-[10px] font-semibold uppercase tracking-[1.5px] text-[#8993a4]">
-                                SOURCES ({message.sources.length})
+                                SOURCES ({message.sources.length} REFERENCES)
                               </p>
 
-                              <div className="space-y-2">
-                                {message.sources.map((source) => (
-                                  <div
-                                    key={source.reference}
-                                    className={`rounded-xl border bg-white p-4 transition ${
-                                      selectedSource === source.reference
-                                        ? "border-[#8091ed] shadow-sm"
-                                        : "border-[#e8ebf1]"
-                                    }`}
-                                  >
-                                    <div className="flex items-start gap-3">
-                                      <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-[#f0f2ff] text-[#596ed7]">
-                                        <FileText size={16} />
-                                      </div>
-
-                                      <div className="min-w-0 flex-1">
-                                        <p className="text-xs font-semibold text-[#34415a]">
-                                          [{source.reference}] {source.title}
-                                        </p>
-
-                                        <div className="mt-1 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-[#8993a4]">
-                                          {source.page_number !== null && (
-                                            <span>
-                                              Page {source.page_number}
-                                            </span>
-                                          )}
-
-                                          {source.section_title && (
-                                            <span>
-                                              {source.section_title}
-                                            </span>
-                                          )}
+                              <div className="space-y-3">
+                                {Object.entries(groupSources(message.sources)).map(
+                                  ([title, sources]) => (
+                                    <div
+                                      key={title}
+                                      className="rounded-xl border border-[#e8ebf1] bg-white p-4"
+                                    >
+                                      <div className="flex items-center gap-3">
+                                        <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-[#f0f2ff] text-[#596ed7]">
+                                          <FileText size={17} />
                                         </div>
 
-                                        {source.source_url && (
-                                          <a
-                                            href={source.source_url}
-                                            target="_blank"
-                                            rel="noopener noreferrer"
-                                            className="mt-2 inline-flex items-center gap-1 text-xs font-medium text-[#5267d8] hover:underline"
-                                          >
-                                            Open source
-                                            <ExternalLink size={12} />
-                                          </a>
-                                        )}
+                                        <div className="min-w-0 flex-1">
+                                          <p className="text-xs font-semibold text-[#34415a]">
+                                            {title}
+                                          </p>
+                                          <p className="mt-1 text-[11px] text-[#8993a4]">
+                                            {sources.length} cited pages
+                                          </p>
+                                        </div>
+                                      </div>
+
+                                      <div className="mt-4 border-t border-[#eef0f4] pt-3">
+                                        <p className="mb-2 text-[10px] font-semibold uppercase tracking-wider text-[#8993a4]">
+                                          CITED REFERENCES
+                                        </p>
+
+                                        <div className="flex flex-wrap gap-2">
+                                          {sources.map((source) => (
+                                            <button
+                                              key={source.reference}
+                                              onClick={() =>
+                                                setSelectedSource(source.reference)
+                                              }
+                                              className={`rounded-lg border px-3 py-2 text-xs font-medium transition ${
+                                                selectedSource === source.reference
+                                                  ? "border-[#8292ed] bg-[#e9edff] text-[#4055c4]"
+                                                  : "border-[#e8ebf1] bg-[#fafbfe] text-[#52617a] hover:border-[#cbd3fa] hover:bg-[#f0f2ff]"
+                                              }`}
+                                            >
+                                              [{source.reference}]
+                                              {source.page_number !== null &&
+                                                ` · Page ${source.page_number}`}
+                                            </button>
+                                          ))}
+                                        </div>
                                       </div>
                                     </div>
-                                  </div>
-                                ))}
+                                  )
+                                )}
                               </div>
                             </div>
                           )}
